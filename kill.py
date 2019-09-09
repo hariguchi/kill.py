@@ -18,11 +18,14 @@ def doit(procs, pat, dry, debug=False):
     p2 = re.compile(r'kill.py')
     for line in procs.split('\n'):
         if p.search(line[27:]) != None and p2.search(line[27:]) == None:
-            col = re.compile(r'[ \t]+').split(line)
+            col = re.compile(r'[ \t]+').split(line.strip())
             if dry == True:
-                print '%s\n' % (line)
+                print '%s' % (line)
+                #print col
+                #print
             else:
-                subprocess.call(['kill', '-9', col[1]])
+                print "%s: %s" % (col[0], line)
+                subprocess.call(['kill', '-9', col[0]])
 
 def main():
     debug = False
